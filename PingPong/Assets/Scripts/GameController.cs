@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GameCOntroller : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDragHandler
+public class GameController : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDragHandler
 {
+	private bool isDragging = false;
+	private Vector3 startDragPoint;
+
 	public void OnDrag(PointerEventData eventData)
 	{
-		throw new System.NotImplementedException();
+		Debug.Log(eventData.position);
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		throw new System.NotImplementedException();
+		isDragging = true;
+		startDragPoint = eventData.pressPosition;
+		Debug.Log(startDragPoint + " !!!");
 	}
 
 	public void OnPointerUp(PointerEventData eventData)
 	{
-		throw new System.NotImplementedException();
+		isDragging = false;
 	}
 
 	// Start is called before the first frame update
