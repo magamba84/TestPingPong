@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class colorsTest : MonoBehaviour
+public class ÑolorsTest : MonoBehaviour
 {
 	void Update()
 	{
