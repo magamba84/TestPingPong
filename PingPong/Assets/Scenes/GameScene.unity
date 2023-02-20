@@ -367,7 +367,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputController: {fileID: 38432847}
-  ball: {fileID: 1875206986}
   speed: 10
 --- !u!1 &38432841
 GameObject:
@@ -1211,6 +1210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1778105599}
   - component: {fileID: 1778105598}
+  - component: {fileID: 1778105600}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1230,8 +1230,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022be8bea60270e44bc5e8d7fcd32476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballStartPlace: {fileID: 0}
-  ballInstances: []
+  ballStartPlace: {fileID: 2018422083}
+  ballInstances:
+  - {fileID: 1993049376019515940, guid: 93fb180c7eaef5a4c9f2b7c0820b554b, type: 3}
+  - {fileID: 1993049376019515940, guid: bc810e872cb8dfd4785c4507ee3da313, type: 3}
+  - {fileID: 1993049376019515940, guid: 6dec7d99d350c1248b653d8cfbdd000f, type: 3}
+  - {fileID: 1993049376019515940, guid: 80255bee29d88f04f8e7e7cae784ade3, type: 3}
+  saveService: {fileID: 1778105600}
+  playerController: {fileID: 35065290}
 --- !u!4 &1778105599
 Transform:
   m_ObjectHideFlags: 0
@@ -1253,6 +1259,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1778105600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778105597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18c85300c371c246833060074667009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1875206980
 GameObject:
   m_ObjectHideFlags: 0

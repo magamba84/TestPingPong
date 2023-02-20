@@ -17,6 +17,13 @@ public class BallColorer : MonoBehaviour
 	{
 		mesh = GetComponent<MeshFilter>().mesh;
 		vertices = mesh.vertices;
+
+		Color[] colors = new Color[vertices.Length];
+		for (int i = 0; i < vertices.Length; i++)
+		{
+			colors[i] = baseColor;
+		}
+		mesh.colors = colors;
 	}
 
 	void Update()

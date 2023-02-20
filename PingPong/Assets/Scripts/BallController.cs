@@ -17,8 +17,11 @@ public class BallController : MonoBehaviour, IPausable
 	void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
-		rigidBody.AddForce(new Vector2(1, 2) * 200);
+	}
 
+	public void StartPlay() 
+	{
+		rigidBody.AddForce(new Vector2(1, 2) * 200);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

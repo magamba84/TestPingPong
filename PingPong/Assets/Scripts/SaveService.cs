@@ -5,27 +5,27 @@ using UnityEngine;
 
 public class SaveService : MonoBehaviour
 {
-	public void SaveProgress(string projId, object model)
+	public void SaveProgress(object model)
 	{
 		string dataJson = JsonConvert.SerializeObject(model);
-		SaveProgress(projId, dataJson);
+		SaveProgress(dataJson);
 	}
 
-	public T LoadProgress<T>(string projId)
+	public T LoadProgress<T>()
 	{
-		var dataJson = LoadProgress(projId);
+		var dataJson = LoadProgress();
 		return JsonConvert.DeserializeObject<T>(dataJson);
 	}
 
-	public void SaveProgress(string projId, string dataJson)
+	public void SaveProgress(string dataJson)
 	{
-		Debug.Log($"SatelliteDataSaver_file: save progress to {Application.persistentDataPath}/{projId}.txt \n saved data: {dataJson}");
+		//Debug.Log($"SatelliteDataSaver_file: save progress to {Application.persistentDataPath}/{projId}.txt \n saved data: {dataJson}");
 		FilesUtility.SaveTextFile(dataJson);
 	}
 
-	public string LoadProgress(string projId)
+	public string LoadProgress()
 	{
-		Debug.Log($"SatelliteDataSaver_file: load progress from {Application.persistentDataPath}/{projId}.txt");
+		//Debug.Log($"SatelliteDataSaver_file: load progress from {Application.persistentDataPath}/{projId}.txt");
 		return FilesUtility.LoadTextFile();
 	}
 }
