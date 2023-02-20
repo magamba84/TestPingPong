@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallColorer : MonoBehaviour
 {
-	[SerializeField] private float radius = 1f;
+	[SerializeField] private Color baseColor;
 	Mesh mesh;
 	private Vector3[] vertices;
 	private Vector3 lastCollisionPont;
@@ -48,7 +48,7 @@ public class BallColorer : MonoBehaviour
 			float r = Mathf.Max(((vertices[i] - pos).magnitude) * intencity, 0);
 			//min = Mathf.Min(r, min);
 			//max = Mathf.Max(r, max);
-			colors[i] = Color.Lerp(Color.white, Color.red, r);
+			colors[i] = Color.Lerp(baseColor, Color.red, r);
 			//Debug.Log((vertices[i] - pos).magnitude);
 		}
 		//Debug.Log(min + " / " + max);

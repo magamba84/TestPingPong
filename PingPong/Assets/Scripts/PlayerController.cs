@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private InputController inputController;
+    [SerializeField] private BallController ball;
+
     [SerializeField] private float speed = 1f;
 
     private bool isDragging;

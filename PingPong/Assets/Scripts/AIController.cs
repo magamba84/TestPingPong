@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject ball;
+    
 
     // Update is called once per frame
     void Update()
     {
-        
+        var pos = transform.position;
+        pos.x = ball.transform.position.x;
+        transform.position = pos;
     }
 }

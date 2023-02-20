@@ -3,37 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GameController : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDragHandler
+public class GameController : MonoBehaviour, IPausable
 {
-	private bool isDragging = false;
-	private Vector3 startDragPoint;
+	[SerializeField] private Transform ballStartPlace;
+	[SerializeField] private List<GameObject> ballInstances;
 
-	public void OnDrag(PointerEventData eventData)
+	private void Start()
 	{
-		Debug.Log(eventData.position);
+		/*Debug.Log(1);
+		FilesUtility.LoadTextFile();
+		Debug.Log(2);
+		FilesUtility.SaveTextFile("mama mila ramu");
+		Debug.Log(3);
+		var s = FilesUtility.LoadTextFile();
+		Debug.Log(s);*/
 	}
 
-	public void OnPointerDown(PointerEventData eventData)
-	{
-		isDragging = true;
-		startDragPoint = eventData.pressPosition;
-		Debug.Log(startDragPoint + " !!!");
+	public void StartGame() 
+	{ 
+	
 	}
 
-	public void OnPointerUp(PointerEventData eventData)
-	{
-		isDragging = false;
+	public void IncreaseScore() 
+	{ 
+	
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void SetPause(bool pause)
+	{ 
+		
+	}
 }
