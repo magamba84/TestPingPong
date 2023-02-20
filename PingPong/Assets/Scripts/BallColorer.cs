@@ -5,7 +5,8 @@ using UnityEngine;
 public class BallColorer : MonoBehaviour
 {
 	[SerializeField] private Color baseColor;
-	Mesh mesh;
+
+	private Mesh mesh;
 	private Vector3[] vertices;
 	private Vector3 lastCollisionPont;
 
@@ -13,11 +14,15 @@ public class BallColorer : MonoBehaviour
 	private float intencity;
 	private float intencityDecreaseSpeed = 2f;
 
-	void Start()
+	void Awake()
 	{
 		mesh = GetComponent<MeshFilter>().mesh;
 		vertices = mesh.vertices;
+		SetColorInstant(baseColor);
+	}
 
+	public void SetColorInstant(Color color) 
+	{
 		Color[] colors = new Color[vertices.Length];
 		for (int i = 0; i < vertices.Length; i++)
 		{
@@ -35,7 +40,7 @@ public class BallColorer : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	public void CollisionEnter(Collision2D collision)
 	{
 		collided = true;
 		intencity = 1f;
@@ -48,17 +53,12 @@ public class BallColorer : MonoBehaviour
 	private void ColorFromPos(Vector3 pos, float intencity)
 	{
 		Color[] colors = new Color[vertices.Length];
-		//float min = float.MaxValue;
-		//float max = float.MinValue;
 		for (int i = 0; i < vertices.Length; i++)
 		{
 			float r = Mathf.Max(((vertices[i] - pos).magnitude) * intencity, 0);
-			//min = Mathf.Min(r, min);
-			//max = Mathf.Max(r, max);
 			colors[i] = Color.Lerp(baseColor, Color.red, r);
-			//Debug.Log((vertices[i] - pos).magnitude);
 		}
-		//Debug.Log(min + " / " + max);
 		mesh.colors = colors;
 	}
+
 }

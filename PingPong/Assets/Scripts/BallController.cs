@@ -11,6 +11,8 @@ public class BallController : MonoBehaviour, IPausable
 	[SerializeField] private float maxYSpeed = 10f;
 	[SerializeField] private float maxXSpeed = 10f;
 
+	[SerializeField] private BallColorer colorer;
+
 	private Rigidbody2D rigidBody;
 
 	private bool movingDown;
@@ -34,6 +36,8 @@ public class BallController : MonoBehaviour, IPausable
 
 			movingDown = to.y < 0;
 		}
+
+		colorer.CollisionEnter(collision);
 	}
 
 	private void Update()

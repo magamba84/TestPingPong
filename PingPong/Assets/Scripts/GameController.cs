@@ -12,6 +12,7 @@ public class GameModel
 
 public class GameController : MonoBehaviour, IPausable
 {
+	[SerializeField] private UIController UI;
 	[SerializeField] private Transform ballStartPlace;
 	[SerializeField] private List<GameObject> ballInstances;
 
@@ -32,19 +33,19 @@ public class GameController : MonoBehaviour, IPausable
 			InitDefaultGameModel();
 	}
 
-	private void InitDefaultGameModel() 
+	private void InitDefaultGameModel()
 	{
 		currentGameModel = new GameModel();
 		currentGameModel.currentBall = 0;
 		currentGameModel.highScore = 0;
-		currentGameModel.openBalls = new List<int> { 0 };
+		currentGameModel.openBalls = new List<int> { 0, 1 };
 		saveService.SaveProgress(currentGameModel);
 	}
 
 	public void StartGame(int ballIndex = 0)
 	{
 		currentScore = 0;
-		ball = Instantiate(ballInstances[ballIndex],transform);
+		ball = Instantiate(ballInstances[ballIndex], transform);
 		ball.transform.position = ballStartPlace.position;
 		playerController.Init(ball);
 	}
