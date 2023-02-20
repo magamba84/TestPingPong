@@ -10,7 +10,7 @@ public class GameModel
 	public List<int> openBalls;
 }
 
-public class GameController : MonoBehaviour, IPausable
+public class GameController : MonoBehaviour
 {
 	[SerializeField] private UIController UI;
 	[SerializeField] private Transform ballStartPlace;
@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour, IPausable
 	[SerializeField] private SaveService saveService;
 
 	[SerializeField] private PlayerController playerController;
+	[SerializeField] private AIController aiController;
 
 	private GameObject ball;
 
@@ -56,6 +57,7 @@ public class GameController : MonoBehaviour, IPausable
 	public void SetBall(int index)
 	{
 		currentGameModel.currentBall = index;
+		saveService.SaveProgress(currentGameModel);
 	}
 
 	public void StartGame()
@@ -63,15 +65,22 @@ public class GameController : MonoBehaviour, IPausable
 		currentScore = 0;
 		ball = Instantiate(ballInstances[currentGameModel.currentBall], transform);
 		ball.transform.position = ballStartPlace.position;
+		aiController.Init(ball);
 		playerController.Init(ball);
+
 		UI.SetUIMode(UIMode.Game);
+
+		playerController.gameObject.SetActive(true);
+		aiController.gameObject.SetActive(true);
 	}
 
 	public void IncreaseScore()
 	{
 		currentScore++;
+		UI.SetScore(currentScore);
 		if (currentScore > currentGameModel.highScore)
 		{
+			UI.SetHighScore(currentScore);
 			currentGameModel.highScore = currentScore;
 			saveService.SaveProgress(currentGameModel);
 		}
@@ -80,5 +89,7 @@ public class GameController : MonoBehaviour, IPausable
 	public void SetPause(bool pause)
 	{
 		UI.SetUIMode(pause ? UIMode.Pause : UIMode.Game);
+		playerController.gameObject.SetActive(!pause);
+		aiController.gameObject.SetActive(!pause);
 	}
 }

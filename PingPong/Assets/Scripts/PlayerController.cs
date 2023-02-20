@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BasePadController
 {
 	[SerializeField] private InputController inputController;
 
@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
 	private float desiredX;
 	private float xMin, xMax;
 
-	private GameObject ball;
-
 	public event Action HitBall;
 
 
@@ -25,11 +23,6 @@ public class PlayerController : MonoBehaviour
 		inputController.TouchDown += OnTouchDown;
 		inputController.TouchMove += OnTouchMove;
 		inputController.TouchUp += OnTouchUp;
-	}
-
-	public void Init(GameObject ball)
-	{
-		this.ball = ball;
 	}
 
 	private void OnTouchDown(Vector3 pos)

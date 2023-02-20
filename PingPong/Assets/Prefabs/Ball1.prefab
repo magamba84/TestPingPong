@@ -139,6 +139,7 @@ MonoBehaviour:
   minYSpeed: 2
   maxYSpeed: 10
   maxXSpeed: 10
+  colorer: {fileID: 1993049376019515947}
 --- !u!114 &1993049376019515947
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2742,6 +2742,7 @@ MonoBehaviour:
   - {fileID: 1993049376019515940, guid: 80255bee29d88f04f8e7e7cae784ade3, type: 3}
   saveService: {fileID: 1778105600}
   playerController: {fileID: 35065290}
+  aiController: {fileID: 12981564}
 --- !u!4 &1778105599
 Transform:
   m_ObjectHideFlags: 0

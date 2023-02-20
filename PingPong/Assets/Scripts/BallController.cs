@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController : MonoBehaviour, IPausable
+public class BallController : MonoBehaviour
 {
 	[SerializeField] private GameObject PlayerPad;
 	[SerializeField] private GameObject AIPad;

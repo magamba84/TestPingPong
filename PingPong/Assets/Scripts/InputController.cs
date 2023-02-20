@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputController : MonoBehaviour
@@ -83,7 +81,7 @@ public class InputController : MonoBehaviour
 			return;
 
 		savedTouch = touch.fingerId;
-		TouchDown?.Invoke(GetCoordinates(touch.position));
+		TouchDown?.Invoke(TransformCoordinates(touch.position));
 	}
 
 	private void MoveTouch(Touch touch)
@@ -91,7 +89,7 @@ public class InputController : MonoBehaviour
 		if (savedTouch != touch.fingerId)
 			return;
 
-		TouchMove?.Invoke(GetCoordinates(touch.position));
+		TouchMove?.Invoke(TransformCoordinates(touch.position));
 
 	}
 
@@ -101,10 +99,10 @@ public class InputController : MonoBehaviour
 			return;
 
 		savedTouch = -1;
-		TouchUp?.Invoke(GetCoordinates(touch.position));
+		TouchUp?.Invoke(TransformCoordinates(touch.position));
 	}
 
-	public Vector3 GetCoordinates(Vector3 position)
+	public Vector3 TransformCoordinates(Vector3 position)
 	{
 		var w = Screen.width;
 		var h = Screen.height;
@@ -116,6 +114,6 @@ public class InputController : MonoBehaviour
 
 		var point = ray.GetPoint(range);
 		return point;
-
 	}
+
 }

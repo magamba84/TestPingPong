@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIController : MonoBehaviour
+public class AIController : BasePadController
 {
-    [SerializeField] GameObject ball;
-    
 
-    // Update is called once per frame
     void Update()
     {
         var pos = transform.position;
