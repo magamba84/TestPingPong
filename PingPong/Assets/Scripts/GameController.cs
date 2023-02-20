@@ -28,9 +28,20 @@ public class GameController : MonoBehaviour, IPausable
 
 	private void Start()
 	{
+		UI.SetUIMode(UIMode.Intro);
+
+		UI.GameStarted -= StartGame;
+		UI.GameStarted += StartGame;
+		UI.Paused -= SetPause;
+		UI.Paused += SetPause;
+		UI.BallSelected -= SetBall;
+		UI.BallSelected += SetBall;
+
 		currentGameModel = saveService.LoadProgress<GameModel>();
 		if (currentGameModel == null)
 			InitDefaultGameModel();
+
+		UI.SetEnabledColors(currentGameModel.openBalls);
 	}
 
 	private void InitDefaultGameModel()
@@ -42,12 +53,18 @@ public class GameController : MonoBehaviour, IPausable
 		saveService.SaveProgress(currentGameModel);
 	}
 
-	public void StartGame(int ballIndex = 0)
+	public void SetBall(int index)
+	{
+		currentGameModel.currentBall = index;
+	}
+
+	public void StartGame()
 	{
 		currentScore = 0;
-		ball = Instantiate(ballInstances[ballIndex], transform);
+		ball = Instantiate(ballInstances[currentGameModel.currentBall], transform);
 		ball.transform.position = ballStartPlace.position;
 		playerController.Init(ball);
+		UI.SetUIMode(UIMode.Game);
 	}
 
 	public void IncreaseScore()
@@ -62,6 +79,6 @@ public class GameController : MonoBehaviour, IPausable
 
 	public void SetPause(bool pause)
 	{
-
+		UI.SetUIMode(pause ? UIMode.Pause : UIMode.Game);
 	}
 }

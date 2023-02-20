@@ -23,10 +23,11 @@ public class BallColorer : MonoBehaviour
 
 	public void SetColorInstant(Color color) 
 	{
+		baseColor = color;
 		Color[] colors = new Color[vertices.Length];
 		for (int i = 0; i < vertices.Length; i++)
 		{
-			colors[i] = baseColor;
+			colors[i] = color;
 		}
 		mesh.colors = colors;
 	}
