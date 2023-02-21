@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
 	[SerializeField] private PlayerController playerController;
 	[SerializeField] private AIController aiController;
 
+	[SerializeField] private List<int> ballsUnlockScore = new List<int> { 0, 1, 10, 100 };
+
 	private GameObject ball;
 
 	private GameModel currentGameModel = null;
@@ -29,8 +31,6 @@ public class GameController : MonoBehaviour
 
 	private void Start()
 	{
-		UI.SetUIMode(UIMode.Intro);
-
 		UI.GameStarted -= StartGame;
 		UI.GameStarted += StartGame;
 		UI.Paused -= SetPause;
@@ -42,7 +42,8 @@ public class GameController : MonoBehaviour
 		if (currentGameModel == null)
 			InitDefaultGameModel();
 
-		UI.SetEnabledColors(currentGameModel.openBalls);
+		UI.SetGameModel(currentGameModel);
+		UI.SetUIMode(UIMode.Intro);
 	}
 
 	private void InitDefaultGameModel()
@@ -63,8 +64,14 @@ public class GameController : MonoBehaviour
 	public void StartGame()
 	{
 		currentScore = 0;
+		UI.SetScore(currentScore);
+
+		if (ball != null)
+			Destroy(ball);
+
 		ball = Instantiate(ballInstances[currentGameModel.currentBall], transform);
 		ball.transform.position = ballStartPlace.position;
+		ball.GetComponent<BallController>().StartPlay(playerController.gameObject, aiController.gameObject);
 		aiController.Init(ball);
 		playerController.Init(ball);
 
@@ -72,6 +79,9 @@ public class GameController : MonoBehaviour
 
 		playerController.gameObject.SetActive(true);
 		aiController.gameObject.SetActive(true);
+
+		playerController.HitBall -= IncreaseScore;
+		playerController.HitBall += IncreaseScore;
 	}
 
 	public void IncreaseScore()
@@ -80,10 +90,26 @@ public class GameController : MonoBehaviour
 		UI.SetScore(currentScore);
 		if (currentScore > currentGameModel.highScore)
 		{
-			UI.SetHighScore(currentScore);
 			currentGameModel.highScore = currentScore;
+
+			CheckUnlockConditions();
 			saveService.SaveProgress(currentGameModel);
 		}
+	}
+
+	private void CheckUnlockConditions() 
+	{
+		for (int i = 0; i < ballsUnlockScore.Count; i++)
+		{
+			if (currentGameModel.openBalls.Contains(i))
+				continue;
+
+			if (ballsUnlockScore[i] <= currentGameModel.highScore)
+			{
+				currentGameModel.openBalls.Add(i);
+			}
+		}
+
 	}
 
 	public void SetPause(bool pause)
@@ -91,5 +117,6 @@ public class GameController : MonoBehaviour
 		UI.SetUIMode(pause ? UIMode.Pause : UIMode.Game);
 		playerController.gameObject.SetActive(!pause);
 		aiController.gameObject.SetActive(!pause);
+		ball.gameObject.SetActive(!pause);
 	}
 }

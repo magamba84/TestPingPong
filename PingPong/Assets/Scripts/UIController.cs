@@ -22,6 +22,7 @@ public class UIController : MonoBehaviour
 	[SerializeField] private Text currentScoreCount;
 
 	private UIMode mode = UIMode.Intro;
+	private GameModel currentGameModel;
 
 	public event Action<int> BallSelected;
 	public event Action<bool> Paused;
@@ -33,12 +34,9 @@ public class UIController : MonoBehaviour
 		BallSelected?.Invoke(index);
 	}
 
-	public void SetEnabledColors(List<int> enabledColors)
+	public void SetGameModel(GameModel model) 
 	{
-		for (int i = 0; i < colorButtons.Count; i++)
-		{
-			colorButtons[i].interactable = enabledColors.Contains(i);
-		}
+		currentGameModel = model;
 	}
 
 	public void StartGame()
@@ -61,9 +59,19 @@ public class UIController : MonoBehaviour
 		currentScoreCount.text = score.ToString();
 	}
 
-	public void SetHighScore(int highScore)
+	private void SetHighScore(int highScore)
 	{
 		highScoreCount.text = highScore.ToString();
+	}
+	private void SetEnabledColors(List<int> enabledColors)
+	{
+		foreach (var cB in colorButtons)
+			cB.gameObject.SetActive(true);
+
+		for (int i = 0; i < colorButtons.Count; i++)
+		{
+			colorButtons[i].interactable = enabledColors.Contains(i);
+		}
 	}
 
 	public void SetUIMode(UIMode mode)
@@ -78,9 +86,8 @@ public class UIController : MonoBehaviour
 			highScoreCount.gameObject.SetActive(true);
 			currentScoreCount.gameObject.SetActive(false);
 			ballColorer.gameObject.SetActive(true);
-			foreach (var cB in colorButtons)
-				cB.gameObject.SetActive(true);
-
+			SetEnabledColors(currentGameModel.openBalls);
+			SetHighScore(currentGameModel.highScore);
 		}
 		else if (mode == UIMode.Pause)
 		{
@@ -91,9 +98,8 @@ public class UIController : MonoBehaviour
 			highScoreCount.gameObject.SetActive(true);
 			currentScoreCount.gameObject.SetActive(false);
 			ballColorer.gameObject.SetActive(true);
-			foreach (var cB in colorButtons)
-				cB.gameObject.SetActive(true);
-
+			SetEnabledColors(currentGameModel.openBalls);
+			SetHighScore(currentGameModel.highScore);
 		}
 		else if (mode == UIMode.Game)
 		{

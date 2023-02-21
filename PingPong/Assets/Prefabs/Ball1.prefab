@@ -134,11 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d035abe267ee644872b13f02adcb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPad: {fileID: 0}
-  AIPad: {fileID: 0}
   minYSpeed: 2
   maxYSpeed: 10
-  maxXSpeed: 10
+  maxXSpeed: 3
   colorer: {fileID: 1993049376019515947}
 --- !u!114 &1993049376019515947
 MonoBehaviour:
